@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kade's AR Business Card</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ar.js/2.2.0/aframe-ar.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-ar@1.8.1/dist/aframe-ar.min.js"></script>
     <style>
         body { margin: 0; overflow: hidden; background: black; }
         #info {
@@ -23,28 +23,15 @@
     </style>
 </head>
 <body>
-    <div id="info">Point your camera at the QR code to view the AR card.</div>
+    <div id="info">Move your phone around to see the AR Business Card.</div>
     <a-scene embedded arjs>
-        <a-marker preset="custom" type="pattern" url="https://kadesexton.github.io/mywebsite/pattern-marker.patt">
-            <a-entity geometry="primitive: plane; height: 2; width: 3"
-                      material="shader: html; target: #card-info;"
-                      position="0 0.5 0"
-                      rotation="-90 0 0">
-            </a-entity>
-            <a-entity id="resume-text"
-                      text="value: Kade Sexton\nCybersecurity & IT\nClick below to contact;"
-                      position="0 1.5 0"
-                      scale="1 1 1"
-                      color="white">
-            </a-entity>
-            <a-entity geometry="primitive: box; depth: 0.2; height: 0.5; width: 2"
-                      material="color: #FFD700;"
-                      position="0 0.2 0"
-                      class="clickable"
-                      onclick="window.open('mailto:kadesexton@gmail.com', '_blank')">
-            </a-entity>
-        </a-marker>
-        <a-entity camera></a-entity>
-    </a-scene>
-</body>
-</html>
+        <a-entity position="0 1 -2">
+            <a-plane position="0 1 0" width="2" height="1" color="black" material="opacity: 0.8">
+                <a-text value="Kade Sexton\nCybersecurity & IT\nTap below to contact" align="center" position="0 0.4 0" color="#FFD700"></a-text>
+            </a-plane>
+            <a-box position="0 -0.5 0" depth="0.1" height="0.3" width="1.5" color="#FFD700" onclick="window.open('mailto:kadesexton@gmail.com', '_blank')">
+                <a-text value="📩 Contact Me" align="center" position="0 0 0.1" color="black"></a-text>
+            </a-box>
+        </a-entity>
+        <a-camera position="0 1.6 0"></a-camera>
+    </a-s
