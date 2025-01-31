@@ -1,13 +1,13 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kade's AR Business Card</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-ar@1.8.1/dist/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
     <style>
-        body { margin: 0; overflow: hidden; background: black; }
+        body { margin: 0; overflow: hidden; background: black; text-align: center; }
         #info {
             position: absolute;
             top: 10px;
@@ -23,15 +23,28 @@
     </style>
 </head>
 <body>
-    <div id="info">Move your phone around to see the AR Business Card.</div>
+    <div id="info">🔍 Move your phone to view the AR Business Card</div>
+
+    <!-- AR Scene -->
     <a-scene embedded arjs>
-        <a-entity position="0 1 -2">
-            <a-plane position="0 1 0" width="2" height="1" color="black" material="opacity: 0.8">
-                <a-text value="Kade Sexton\nCybersecurity & IT\nTap below to contact" align="center" position="0 0.4 0" color="#FFD700"></a-text>
+        <!-- The 3D Business Card -->
+        <a-entity position="0 1 -3" animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+            <a-plane width="2.5" height="1.5" color="black" material="opacity: 0.9" position="0 1 0">
+                <a-text value="🚀 Kade Sexton\nCybersecurity & IT" align="center" position="0 0.3 0" color="#FFD700"></a-text>
             </a-plane>
-            <a-box position="0 -0.5 0" depth="0.1" height="0.3" width="1.5" color="#FFD700" onclick="window.open('mailto:kadesexton@gmail.com', '_blank')">
-                <a-text value="📩 Contact Me" align="center" position="0 0 0.1" color="black"></a-text>
+
+            <!-- Contact Button -->
+            <a-box position="0 -0.3 0" depth="0.1" height="0.3" width="1.5" color="#FFD700" onclick="window.open('mailto:kadesexton@gmail.com', '_blank')">
+                <a-text value="📩 Email Me" align="center" position="0 0 0.1" color="black"></a-text>
+            </a-box>
+
+            <!-- LinkedIn Button -->
+            <a-box position="0 -0.8 0" depth="0.1" height="0.3" width="1.5" color="#0077cc" onclick="window.open('https://linkedin.com/in/kadesexton', '_blank')">
+                <a-text value="🔗 LinkedIn" align="center" position="0 0 0.1" color="white"></a-text>
             </a-box>
         </a-entity>
+
         <a-camera position="0 1.6 0"></a-camera>
-    </a-s
+    </a-scene>
+</body>
+</html>
