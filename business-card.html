@@ -3,72 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kade Sexton's Digital Business Card</title>
+    <title>Kade Sexton's Cyberpunk Card</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: #111;
+            font-family: 'Orbitron', sans-serif;
+            background: #0d0d0d;
             color: #fff;
             text-align: center;
             padding: 20px;
+            overflow: hidden;
         }
-        
+
         .card {
-            background: #222;
+            background: rgba(10, 10, 20, 0.9);
             border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.5);
             display: inline-block;
             max-width: 400px;
             width: 100%;
+            border: 2px solid cyan;
+            position: relative;
+            animation: flicker 1.5s infinite alternate;
         }
 
         .card img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             margin-bottom: 15px;
-            border: 2px solid #FFD700;
+            border: 3px solid cyan;
         }
 
         .card h1 {
-            font-size: 1.5em;
+            font-size: 1.7em;
             margin-bottom: 10px;
-            color: #FFD700;
+            background: linear-gradient(45deg, cyan, magenta);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px cyan, 0 0 20px magenta;
         }
 
         .card p {
             font-size: 1em;
             margin-bottom: 15px;
+            text-shadow: 0 0 5px cyan;
         }
 
         .button {
             display: block;
-            background: #FFD700;
-            color: #111;
-            padding: 10px 15px;
+            background: rgba(0, 255, 255, 0.2);
+            color: cyan;
+            padding: 12px 15px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
             margin: 10px auto;
-            width: 80%;
+            width: 85%;
             transition: 0.3s;
+            border: 2px solid cyan;
+            text-shadow: 0 0 5px cyan;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.5) 10%, rgba(0, 255, 255, 0) 70%);
+            transform: translate(-50%, -50%);
+            transition: top 0.5s;
+        }
+
+        .button:hover::before {
+            top: 50%;
         }
 
         .button:hover {
-            background: #FFA500;
+            background: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 15px cyan, 0 0 25px magenta;
         }
 
-        .glow {
-            text-shadow: 0 0 5px #FFD700, 0 0 10px #FFA500;
+        .scan-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 255, 255, 0.05) 50%, transparent 50%);
+            background-size: 100% 8px;
+            animation: scan 1.5s linear infinite;
         }
+
+        @keyframes scan {
+            from { background-position: 0 0; }
+            to { background-position: 0 -8px; }
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
     </style>
 </head>
 <body>
 
     <div class="card">
-        <img src="https://via.placeholder.com/100" alt="Kade Sexton">
-        <h1 class="glow">Kade Sexton</h1>
+        <div class="scan-lines"></div>
+        <img src="https://via.placeholder.com/120" alt="Kade Sexton">
+        <h1>KADE SEXTON</h1>
         <p>Cybersecurity & IT Professional</p>
 
         <a href="mailto:kadesexton@gmail.com" class="button">📩 Email Me</a>
