@@ -23,28 +23,18 @@
     </style>
 </head>
 <body>
-    <div id="info">🔍 Move your phone to view the AR Business Card</div>
+    <div id="info">🔍 Move your phone to see the AR Business Card</div>
 
     <!-- AR Scene -->
     <a-scene embedded arjs>
-        <!-- The 3D Business Card -->
-        <a-entity position="0 1 -3" animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
-            <a-plane width="2.5" height="1.5" color="black" material="opacity: 0.9" position="0 1 0">
+        <!-- Adjusted camera position to move further back -->
+        <a-camera position="0 1.6 5"></a-camera>
+
+        <!-- The 3D Business Card (Smaller & Further) -->
+        <a-entity position="0 1 -2" scale="0.7 0.7 0.7" animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+            <a-plane width="1.8" height="1" color="black" material="opacity: 0.9" position="0 0.8 0">
                 <a-text value="🚀 Kade Sexton\nCybersecurity & IT" align="center" position="0 0.3 0" color="#FFD700"></a-text>
             </a-plane>
 
             <!-- Contact Button -->
-            <a-box position="0 -0.3 0" depth="0.1" height="0.3" width="1.5" color="#FFD700" onclick="window.open('mailto:kadesexton@gmail.com', '_blank')">
-                <a-text value="📩 Email Me" align="center" position="0 0 0.1" color="black"></a-text>
-            </a-box>
-
-            <!-- LinkedIn Button -->
-            <a-box position="0 -0.8 0" depth="0.1" height="0.3" width="1.5" color="#0077cc" onclick="window.open('https://linkedin.com/in/kadesexton', '_blank')">
-                <a-text value="🔗 LinkedIn" align="center" position="0 0 0.1" color="white"></a-text>
-            </a-box>
-        </a-entity>
-
-        <a-camera position="0 1.6 0"></a-camera>
-    </a-scene>
-</body>
-</html>
+            <a-box position="0 0 0" depth="0.1" height="0.2
