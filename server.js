@@ -1,7 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const fetch = require("node-fetch");
+
+// ✅ Fix for "fetch is not a function"
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 app.use(cors());
@@ -24,7 +26,7 @@ app.post("/chat", async (req, res) => {
     }
 
     try {
-        console.log(`📨 User Message: ${userMessage}`);
+        console.log(`📨 Sending message to OpenAI: ${userMessage}`);
 
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
@@ -43,7 +45,7 @@ app.post("/chat", async (req, res) => {
 
         if (!data.choices) {
             console.error("❌ OpenAI API Error:", data);
-            return res.status(500).json({ response: "❌ Invalid response from OpenAI API." });
+            return res.status(500).json({ response: `❌ OpenAI Error: ${JSON.stringify(data)}` });
         }
 
         console.log(`🤖 AI Response: ${data.choices[0].message.content}`);
@@ -51,7 +53,7 @@ app.post("/chat", async (req, res) => {
 
     } catch (error) {
         console.error("❌ Server Error:", error);
-        res.status(500).json({ response: "❌ Server error, could not process request." });
+        res.status(500).json({ response: `❌ Server error: ${error.message}` });
     }
 });
 
