@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-// ✅ Correct fetch import for Node.js
+// ✅ Fix for "fetch is not a function"
 import('node-fetch').then(({ default: fetch }) => {
     global.fetch = fetch;
 });
@@ -36,3 +36,29 @@ app.post("/chat", async (req, res) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${OPENAI_API_KEY}`
             },
+            body: JSON.stringify({
+                model: "gpt-4",
+                messages: [{ role: "system", content: "You are KADE-9000, an AI assistant." },
+                           { role: "user", content: userMessage }]
+            })
+        });
+
+        const data = await response.json();
+
+        if (!data.choices) {
+            console.error("❌ OpenAI API Error:", data);
+            return res.status(500).json({ response: `❌ OpenAI Error: ${JSON.stringify(data)}` });
+        }
+
+        console.log(`🤖 AI Response: ${data.choices[0].message.content}`);
+        res.json({ response: data.choices[0].message.content });
+
+    } catch (error) {
+        console.error("❌ Server Error:", error);
+        res.status(500).json({ response: `❌ Server error: ${error.message}` });
+    }
+});
+
+// ✅ Ensure server starts correctly
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
