@@ -22,7 +22,7 @@ app.post("/chat", async (req, res) => {
             },
             body: JSON.stringify({
                 model: "gpt-4",
-                messages: [{ role: "system", content: "You are KADE-9000, an AI assistant specializing in cybersecurity." },
+                messages: [{ role: "system", content: "You are KADE-9000, an AI assistant." },
                            { role: "user", content: userMessage }]
             })
         });
@@ -37,4 +37,4 @@ app.post("/chat", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
