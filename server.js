@@ -10,10 +10,22 @@ app.use(express.json());
 // Securely access OpenAI API Key
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
+if (!OPENAI_API_KEY) {
+    console.error("❌ ERROR: Missing OpenAI API Key.");
+    process.exit(1);  // Stop the server if API key is missing
+}
+
 app.post("/chat", async (req, res) => {
     const userMessage = req.body.message;
 
+    if (!userMessage) {
+        console.warn("⚠️ Warning: Received empty message");
+        return res.status(400).json({ response: "❌ Error: Missing message field." });
+    }
+
     try {
+        console.log(`📨 User Message: ${userMessage}`);
+
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -28,11 +40,18 @@ app.post("/chat", async (req, res) => {
         });
 
         const data = await response.json();
+
+        if (!data.choices) {
+            console.error("❌ OpenAI API Error:", data);
+            return res.status(500).json({ response: "❌ Invalid response from OpenAI API." });
+        }
+
+        console.log(`🤖 AI Response: ${data.choices[0].message.content}`);
         res.json({ response: data.choices[0].message.content });
 
     } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ response: "Error calling AI." });
+        console.error("❌ Server Error:", error);
+        res.status(500).json({ response: "❌ Server error, could not process request." });
     }
 });
 
